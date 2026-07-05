@@ -1,0 +1,60 @@
+[build-system]
+# uv_build: 纯 Python 甜区。命中 C/Rust 扩展 / build hook / VCS 动态版本 /
+# 隐式 namespace 包(无 __init__.py) 任一 → 换 hatchling。
+requires = ["uv_build>=0.11.19,<0.12"]
+build-backend = "uv_build"
+
+[project]
+name = "crux"
+version = "0.1.0"
+description = "Unified local CLI entry point with git-style dispatch"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Eridanus" }]
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "gnomon @ git+https://github.com/the-orrery/gnomon.git@1e949bcd22cdfd1f2459dbf43b7f6f03ab31d781",
+    "pydantic-settings>=2.0",
+    "structlog>=24.0",
+]
+
+[project.scripts]
+crux = "crux.cli:run"
+
+[dependency-groups]
+# ruff/pyrefly 不入此组: 走全局 uv tool 装一次。
+# 一次性: uv tool install ruff pyrefly
+dev = [
+    "pytest>=8.0",
+    "pytest-cov",
+    "pytest-mock",
+    "pytest-randomly",
+    "poethepoet",
+    "pyrefly>=1.1.1",
+]
+# 出单文件 binary: uv run --group freeze poe freeze
+freeze = ["pyinstaller>=6.0"]
+
+[tool.poe.tasks]
+lint = "uvx ruff@0.15.16 check ."
+fmt = "uvx ruff@0.15.16 format ."
+typecheck = "pyrefly check"
+test = "pytest"
+check = { sequence = ["lint", "typecheck", "test"], help = "lint + typecheck + test" }
+freeze = { cmd = "pyinstaller --onefile --clean --name crux src/crux/cli.py", help = "打单文件 binary 到 dist/" }
+
+[tool.ruff.lint]
+extend-ignore = ["E501"]
+
+[tool.ruff.lint.extend-per-file-ignores]
+"tests/**" = ["S101", "PLR2004"]
+
+[tool.coverage.run]
+source = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
