@@ -5,7 +5,7 @@ from crux.config import Settings
 
 def test_settings_defaults() -> None:
     s = Settings()
-    assert s.memex_project == Path.home() / "projects" / "memex"
+    assert s.memex_project == Path.home() / "workspace" / "memex"
     assert s.docket_bin == "docket"
     assert s.tools_root == Path.home() / ".config" / "crux" / "tools"
 

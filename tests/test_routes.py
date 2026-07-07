@@ -14,7 +14,7 @@ def test_recall_routes_to_memex(monkeypatch) -> None:
 
 def test_recall_default_project_dir() -> None:
     cmd = resolve("recall", ["q"], Settings())
-    assert cmd[4] == str(Path.home() / "projects" / "memex")
+    assert cmd[4] == str(Path.home() / "workspace" / "memex")
 
 
 def test_pm_routes_to_docket_without_repeating_verb() -> None:

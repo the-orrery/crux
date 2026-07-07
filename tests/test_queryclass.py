@@ -75,5 +75,5 @@ def test_sweep_due_ratio_gated_on_min_sample() -> None:
     # 薄样本(< 基线 70)即使占比极端也不触发 ratio —— 12 条 query 的 exploratory%
     # 无统计意义, 防误报。
     assert queryclass.sweep_due(12, 100.0) is None
-    # 攒够基线规模才与基线占比 apples-to-apples 比, 此时才触发。
+    # 攒够基线规模(70)才与 21% 基线 apples-to-apples 比, 此时才触发。
     assert queryclass.sweep_due(queryclass.SWEEP_BASELINE_UNIQUE, 100.0) is not None
