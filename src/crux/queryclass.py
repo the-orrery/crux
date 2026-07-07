@@ -4,9 +4,10 @@
 12」的口子;这个分类把那个触发信号变成可见的数。exploratory(中文低锚:靠语义吃饭)
 是会从更深召回位受益的那类;precise(代码符号密集)只认前几位。
 
-分类口径与下游 recall planner 保持一致(`is_zh_low_anchor` / `is_strongly_anchored`)。
-这里小幅复刻(~40 行纯 stdlib)是为了让 `crux stats` 自洽、不在观测路径里 subprocess
-调用下游检索工具;判定简单且稳定,漂移风险低。改判定口径时两处一起改。
+分类口径**忠实镜像** memex `planner.py`(`is_zh_low_anchor` / `is_strongly_anchored`)
+—— 那里是检索引擎的真相(同一判定驱动 semantic 加权)。这里小幅复刻(~40 行纯 stdlib)
+是为了让 `crux stats` 自洽、不在观测路径里 subprocess 调 memex;判定简单且稳定,
+漂移风险低。改判定口径时两处一起改。
 
 三桶互斥:zh_low_anchor 要求 ascii_identifier==0 → code_token 必然 0 → 不可能同时
 strongly_anchored;两者都不沾 = mixed。
@@ -14,7 +15,7 @@ strongly_anchored;两者都不沾 = mixed。
 
 from __future__ import annotations
 
-# is_cjk_char 的 range(与 recall planner 保持一致)。
+# is_cjk_char 的 range(镜像 memex planner.py)。
 _CJK_RANGES = (
     (0x3400, 0x4DBF),
     (0x4E00, 0x9FFF),

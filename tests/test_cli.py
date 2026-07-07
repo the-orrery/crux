@@ -51,7 +51,7 @@ def test_dispatch_inherits_stdio_no_env_cwd(monkeypatch) -> None:
     assert seen["kwargs"] == {}  # stdio/env/cwd 全继承, 不传任何 kwargs
 
 
-def test_recall_inherits_stdio_no_env_cwd(monkeypatch) -> None:
+def test_recall_injects_orrery_gateway_token_for_child(monkeypatch) -> None:
     seen: dict = {}
 
     def fake_run(cmd, **kwargs):
@@ -59,10 +59,12 @@ def test_recall_inherits_stdio_no_env_cwd(monkeypatch) -> None:
         seen["kwargs"] = kwargs
         return SimpleNamespace(returncode=0)
 
+    monkeypatch.delenv("ORRERY_GATEWAY_TOKEN", raising=False)
+    monkeypatch.setattr(cli, "_orrery_gateway_token", lambda: "test-token")
     monkeypatch.setattr(subprocess, "run", fake_run)
     assert _run_cli(monkeypatch, ["recall", "查询词"]) == 0
     assert seen["cmd"][5:7] == ["memex", "recall"]
-    assert seen["kwargs"] == {}  # stdio/env/cwd 全继承, 不注入额外环境变量
+    assert seen["kwargs"]["env"]["ORRERY_GATEWAY_TOKEN"] == "test-token"
 
 
 def test_exit_code_passthrough(monkeypatch) -> None:
