@@ -18,6 +18,8 @@ from crux import __version__, surface, telemetry
 from crux.config import Settings
 from crux.routes import resolve, routes
 
+from orrery_heartbeat import check_update
+
 _ORRERY_GATEWAY_SECRET_SERVICE = os.environ.get(
     "CRUX_GATEWAY_KEYCHAIN_SERVICE", "orrery-gateway-token"
 )
@@ -107,6 +109,7 @@ def _dispatch(verb: str, rest: list[str], s: Settings) -> int:
 
 
 def run() -> None:
+    check_update("crux", "the-orrery/crux")
     argv = sys.argv[1:]
     s = Settings()
     if not argv or argv[0] in ("--help", "-h", "help"):

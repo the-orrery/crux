@@ -104,6 +104,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "gnomon" },
+    { name = "orrery-heartbeat" },
     { name = "pydantic-settings" },
     { name = "structlog" },
 ]
@@ -124,6 +125,7 @@ freeze = [
 [package.metadata]
 requires-dist = [
     { name = "gnomon", git = "https://github.com/the-orrery/gnomon.git?rev=1e949bcd22cdfd1f2459dbf43b7f6f03ab31d781" },
+    { name = "orrery-heartbeat", git = "https://github.com/the-orrery/orrery-heartbeat.git" },
     { name = "pydantic-settings", specifier = ">=2.0" },
     { name = "structlog", specifier = ">=24.0" },
 ]
@@ -164,6 +166,11 @@ sdist = { url = "https://files.pythonhosted.org/packages/10/2f/97589876ea9674879
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c7/d1/a9f36f8ecdf0fb7c9b1e78c8d7af12b8c8754e74851ac7b94a8305540fc7/macholib-1.16.4-py2.py3-none-any.whl", hash = "sha256:da1a3fa8266e30f0ce7e97c6a54eefaae8edd1e5f86f3eb8b95457cae90265ea", size = 38117, upload-time = "2025-11-22T08:28:36.939Z" },
 ]
+
+[[package]]
+name = "orrery-heartbeat"
+version = "0.1.0"
+source = { git = "https://github.com/the-orrery/orrery-heartbeat.git#fff4587e279275f6c452891f6bb34fb537543cc3" }
 
 [[package]]
 name = "packaging"
