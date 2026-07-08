@@ -14,11 +14,11 @@ import time
 from datetime import datetime
 from pathlib import Path
 
+from orrery_heartbeat import check_update
+
 from crux import __version__, surface, telemetry
 from crux.config import Settings
 from crux.routes import resolve, routes
-
-from orrery_heartbeat import check_update
 
 _ORRERY_GATEWAY_SECRET_SERVICE = os.environ.get(
     "CRUX_GATEWAY_KEYCHAIN_SERVICE", "orrery-gateway-token"
