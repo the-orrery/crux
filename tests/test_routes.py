@@ -1,20 +1,16 @@
-from pathlib import Path
-
 from crux.config import Settings
 from crux.routes import resolve
 
 
-def test_recall_routes_to_memex(monkeypatch) -> None:
-    monkeypatch.setenv("CRUX_MEMEX_PROJECT", "/tmp/kbs")
+def test_recall_routes_to_installed_memex() -> None:
     cmd = resolve("recall", ["查询词", "--limit", "3"], Settings())
-    assert cmd[:5] == ["uv", "run", "--quiet", "--project", "/tmp/kbs"]
-    assert cmd[5:7] == ["memex", "recall"]
-    assert cmd[7:] == ["查询词", "--limit", "3"]
+    assert cmd == ["memex", "recall", "查询词", "--limit", "3"]
 
 
-def test_recall_default_project_dir() -> None:
+def test_memex_bin_env_override(monkeypatch) -> None:
+    monkeypatch.setenv("CRUX_MEMEX_BIN", "/tmp/fake-memex")
     cmd = resolve("recall", ["q"], Settings())
-    assert cmd[4] == str(Path.home() / "workspace" / "memex")
+    assert cmd == ["/tmp/fake-memex", "recall", "q"]
 
 
 def test_pm_routes_to_docket_without_repeating_verb() -> None:

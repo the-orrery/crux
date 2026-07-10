@@ -2,7 +2,7 @@
 
 crux's Settings is a pydantic BaseSettings with ``env_prefix="CRUX_"``, so any
 CRUX_*-prefixed var overrides a default. The agent session shell exports
-CRUX_MEMEX_PROJECT / CRUX_TOOLS_ROOT / CRUX_DOCKET_BIN, which leak into the test
+CRUX_MEMEX_BIN / CRUX_TOOLS_ROOT / CRUX_DOCKET_BIN, which leak into the test
 process and break the default-value assertions. Strip every CRUX_* var for each
 test; tests that exercise an override set it themselves via monkeypatch.
 """

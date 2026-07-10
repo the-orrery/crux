@@ -63,7 +63,7 @@ def test_recall_injects_orrery_gateway_token_for_child(monkeypatch) -> None:
     monkeypatch.setattr(cli, "_orrery_gateway_token", lambda: "test-token")
     monkeypatch.setattr(subprocess, "run", fake_run)
     assert _run_cli(monkeypatch, ["recall", "查询词"]) == 0
-    assert seen["cmd"][5:7] == ["memex", "recall"]
+    assert seen["cmd"] == ["memex", "recall", "查询词"]
     assert seen["kwargs"]["env"]["ORRERY_GATEWAY_TOKEN"] == "test-token"
 
 

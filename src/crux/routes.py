@@ -19,15 +19,7 @@ class Route:
 def routes(s: Settings) -> dict[str, Route]:
     return {
         "recall": Route(
-            (
-                "uv",
-                "run",
-                "--quiet",
-                "--project",
-                str(s.memex_project),
-                "memex",
-                "recall",
-            ),
+            (s.memex_bin, "recall"),
             "KB 召回 (memex; 参数见 `crux recall --help`)",
         ),
         # docket 自己用 argv[0] dispatch verb, 所以模板不含 verb。bare `crux pm`
