@@ -14,8 +14,6 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-from orrery_heartbeat import check_update
-
 from crux import __version__, surface, telemetry
 from crux.config import Settings
 from crux.routes import resolve, routes
@@ -109,7 +107,6 @@ def _dispatch(verb: str, rest: list[str], s: Settings) -> int:
 
 
 def run() -> None:
-    check_update("crux", "the-orrery/crux")
     argv = sys.argv[1:]
     s = Settings()
     if not argv or argv[0] in ("--help", "-h", "help"):
