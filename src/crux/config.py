@@ -12,6 +12,6 @@ class Settings(BaseSettings):
         env_prefix="CRUX_", env_file=".env", extra="ignore"
     )
 
-    memex_project: Path = Path.home() / "workspace" / "memex"
+    memex_bin: str = "memex"
     docket_bin: str = "docket"
     tools_root: Path = Path.home() / ".config" / "crux" / "tools"
