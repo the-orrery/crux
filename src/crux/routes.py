@@ -28,7 +28,7 @@ def routes(s: Settings) -> dict[str, Route]:
             (s.docket_bin,),
             "工作状态 (docket)",
             default_args=("overview",),
-            option_value_flags=frozenset({"--tier"}),
+            option_value_flags=frozenset({"--tier", "--world"}),
         ),
     }
 
