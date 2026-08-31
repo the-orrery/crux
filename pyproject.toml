@@ -37,7 +37,7 @@ dev = [
     "pyrefly>=1.1.1",
 ]
 # 出单文件 binary: uv run --group freeze poe freeze
-freeze = ["pyinstaller>=6,<7"]
+freeze = ["pyinstaller>=6.22.2,<7"]
 
 [tool.poe.tasks]
 lint = "uvx ruff@0.15.16 check ."
